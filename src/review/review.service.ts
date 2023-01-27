@@ -6,17 +6,31 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class ReviewService {
-	constructor(@InjectModel('Review') private readonly reviewModel: Model<ReviewModel>) {}
+  constructor(
+    @InjectModel('Review') private readonly reviewModel: Model<ReviewModel>,
+  ) {}
 
-	async create(dto: CreateReviewDto): Promise<HydratedDocument<ReviewModel>>{
-		return this.reviewModel.create(dto);
-	}
+  async create(dto: CreateReviewDto): Promise<HydratedDocument<ReviewModel>> {
+    return this.reviewModel.create(dto);
+  }
 
-	async delete(id: string): Promise<HydratedDocument<ReviewModel>| null>{
-		return this.reviewModel.findByIdAndDelete(id).exec();
-	}
+  async delete(id: string): Promise<HydratedDocument<ReviewModel> | null> {
+    return this.reviewModel.findByIdAndDelete(id).exec();
+  }
 
-	async findByProductId(id: string): Promise<HydratedDocument<ReviewModel>[]>{
-		return this.reviewModel.find({productId: new Types.ObjectId(id)}).exec();
-	}
+  async findByProductId(
+    productId: string,
+  ): Promise<HydratedDocument<ReviewModel>[]> {
+    return this.reviewModel
+      .find({ productId: new Types.ObjectId(productId) })
+      .exec();
+  }
+
+  async deleteReviewByProductId(
+    productId: string,
+  ): Promise<{ acknowledged: boolean; deletedCount: number }> {
+    return this.reviewModel
+      .deleteMany({ productId: new Types.ObjectId(productId) })
+      .exec();
+  }
 }

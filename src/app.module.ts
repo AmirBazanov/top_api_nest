@@ -10,16 +10,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { getMongoConfig } from './configs/mongo.config';
 
 @Module({
-	imports: [
-		ConfigModule.forRoot(),
-		AuthModule, ProductModule,
-		TopPageModule, ReviewModule,
-		MongooseModule.forRootAsync({
-			imports: [ConfigModule],
-			inject: [ConfigService],
-			useFactory: getMongoConfig
-		})],
-	controllers: [AppController],
-	providers: [AppService],
+  imports: [
+    ConfigModule.forRoot(),
+    AuthModule, ProductModule,
+    TopPageModule, ReviewModule,
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getMongoConfig
+    })],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
