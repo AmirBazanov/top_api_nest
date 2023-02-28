@@ -1,16 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
-class ProductCharacteristic{
+class ProductCharacteristic {
   @Prop()
   name: string;
   @Prop()
   value: string;
 }
-export const ProductCharacteristicSchema = SchemaFactory.createForClass(ProductCharacteristic);
 
-@Schema({_id: true, timestamps: true})
-export class ProductModel{
+export const ProductCharacteristicSchema = SchemaFactory.createForClass(
+  ProductCharacteristic,
+);
+
+@Schema({ _id: true, timestamps: true })
+export class ProductModel {
   @Prop()
   image: string;
 
@@ -21,7 +24,7 @@ export class ProductModel{
   price: number;
 
   @Prop()
-  oldPrice: number;
+  oldPrice?: number;
 
   @Prop()
   credit: number;
@@ -33,18 +36,18 @@ export class ProductModel{
   description: string;
 
   @Prop()
-  Advantages: string;
+  advantages: string;
 
   @Prop()
   disAdvantages: string;
 
-  @Prop({type: [String]})
+  @Prop({ type: [String] })
   categories: string[];
 
-  @Prop({type: [String]})
+  @Prop({ type: [String] })
   tags: string[];
 
-  @Prop({type: [ProductCharacteristicSchema], _id: false})
+  @Prop({ type: [ProductCharacteristicSchema], _id: false })
   characteristics: ProductCharacteristic[];
 }
 

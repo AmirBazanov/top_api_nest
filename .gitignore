@@ -35,4 +35,6 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 #docker volumes
-mongo-data-4.4
+
+/mongo-data-4.4/*
+.env
